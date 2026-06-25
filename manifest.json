@@ -1,0 +1,15 @@
+{
+  "id": "com.harborclient.plugins.jwt",
+  "name": "JWT Inspector",
+  "author": "HarborClient",
+  "version": "1.0.0",
+  "description": "README.md",
+  "engines": {
+    "harborclient": ">=1.8.4"
+  },
+  "renderer": "dist/renderer.js",
+  "permissions": ["ui"],
+  "contributes": {
+    "responseTabs": [{ "id": "jwt", "title": "JWT" }]
+  }
+}

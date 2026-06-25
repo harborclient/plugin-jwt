@@ -1,0 +1,22 @@
+{
+  "name": "@harborclient/plugin-jwt",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/renderer.tsx --bundle --outfile=dist/renderer.js --format=esm --jsx=automatic --jsx-import-source=@harborclient/sdk --external:react --external:react-dom",
+    "dev": "esbuild src/renderer.tsx --bundle --outfile=dist/renderer.js --format=esm --jsx=automatic --jsx-import-source=@harborclient/sdk --external:react --external:react-dom --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pack": "pnpm build && zip -r jwt.hcp manifest.json README.md dist",
+    "plugin:sign": "node --experimental-strip-types scripts/plugin-sign.ts",
+    "plugin:verify": "node --experimental-strip-types scripts/plugin-verify.ts"
+  },
+  "devDependencies": {
+    "@harborclient/sdk": "^0.4.3",
+    "@types/node": "^26.0.1",
+    "@types/react": "^19.1.8",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

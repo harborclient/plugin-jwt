@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "pluginId": "com.harborclient.plugins.jwt",
+  "pluginVersion": "1.0.0",
+  "algorithm": "Ed25519",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "88ad380decbd9a1a6659c573833c96932dab32e7e0e88fa3353c98f758cd10b3"
+    },
+    {
+      "path": "dist/renderer.js",
+      "sha256": "a778d58e023eb409e327d9dc9639c0c03e51bb286824e2e50ef86127b44f267c"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "ef86302929178613965c0fee8f92c38d48358bd26d72a9933927686860b55560"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8002c4bd3f4539f51221819b75a0fda21a5028fb67b73c93fa2244e8723f25ce"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "e2647b249d03292f6929d61ae45fc82fba1e8c3209152ea18df5bcf7cc730c6e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9eb0b86ae02f51df03144fe0de877657e1fadd649615e62d400a77dbbca6b930"
+    },
+    {
+      "path": "screenshot.png",
+      "sha256": "b5f2a31f8e87356ba43ddb61d443e9dc53d606e9371d5609b0b7fb24d2a1c589"
+    },
+    {
+      "path": "scripts/plugin-sign.ts",
+      "sha256": "dc21f6daa2c0d454b53cc719524f41669c1f1a0319b80b50dc1f0b3fa3f796e3"
+    },
+    {
+      "path": "scripts/plugin-verify.ts",
+      "sha256": "555f897860b881817f6aa66a933a38fb31388b461b8fa1e9e9b6126b67bc18e0"
+    },
+    {
+      "path": "scripts/render-screenshot.sh",
+      "sha256": "d2fe525f530446f4f53add2abcfed2ec7f11253a7d128608781ccd18487fbb25"
+    },
+    {
+      "path": "scripts/screenshot-marketing.html",
+      "sha256": "4fd4bdf4c4a44765eb5f1928ec91d605cd660135f7eca025c58b025b0bc14e16"
+    },
+    {
+      "path": "src/components/JwtCandidateList.tsx",
+      "sha256": "e7e991962ad22d99e62ccc6f9d62b28bb06148fb5eb920fcad9111cd1fcedafc"
+    },
+    {
+      "path": "src/components/JwtDetail.tsx",
+      "sha256": "f10a9d1c16f8b3079db98f4c4e588cb37cf441ad4adb057019903a6b4a0cb94f"
+    },
+    {
+      "path": "src/jwt/decode.test.ts",
+      "sha256": "954608d1eed524e3c95371a5ca2de498802e06abac2d0c35ae7e3a3db41ab3b7"
+    },
+    {
+      "path": "src/jwt/decode.ts",
+      "sha256": "d2457a3528f03b50327b5afdf30cdd1f20a12ca8b4afdfa7bb79d4409be78051"
+    },
+    {
+      "path": "src/jwt/extract.test.ts",
+      "sha256": "a961048c6ef231982cd51ebe64ee3a0f44a81ad523ba972755bf55819f2e7da3"
+    },
+    {
+      "path": "src/jwt/extract.ts",
+      "sha256": "404ee5e67a88a8794219e87dbee7a28b8e660538ef6627ad73dd1bac7e148391"
+    },
+    {
+      "path": "src/JwtTab.tsx",
+      "sha256": "658a0665df62c70da2cc3622f054c38407d645faa5257abb2a774a4e2bdd773d"
+    },
+    {
+      "path": "src/renderer.tsx",
+      "sha256": "923049929a47070751d9144a621dc41782d9a531683e1fbbde1d0ca1cadf9911"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "dced0ea880bec6222ac9856d3d2ce11b91fd874298f3129c8b5944606dc73668"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "4f49d01f0120eff8b5bac0c9abc9bf6263c8da9834d288ff884c1e397436209f"
+    }
+  ],
+  "signature": "oyrw6cB6XiHNlYqhQuYk341WoBNsDHPMOQzvAjCzyg0hs4+oaD4Xuq2NrNSgcDpsLEvSal/YWvDiaMNFESC4Cg=="
+}
