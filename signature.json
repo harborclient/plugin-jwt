@@ -10,7 +10,7 @@
     },
     {
       "path": "dist/renderer.js",
-      "sha256": "a778d58e023eb409e327d9dc9639c0c03e51bb286824e2e50ef86127b44f267c"
+      "sha256": "5622446732545df1eb7137ed616acf5d064f16a5e848afedcb2650c34bcfa5a1"
     },
     {
       "path": "manifest.json",
@@ -89,5 +89,5 @@
       "sha256": "4f49d01f0120eff8b5bac0c9abc9bf6263c8da9834d288ff884c1e397436209f"
     }
   ],
-  "signature": "oyrw6cB6XiHNlYqhQuYk341WoBNsDHPMOQzvAjCzyg0hs4+oaD4Xuq2NrNSgcDpsLEvSal/YWvDiaMNFESC4Cg=="
+  "signature": "47imK8jE8nH2qbIrlYGKrl47yiVnQMoLB3gVAdZaVOuYXBIppNkR4LwUB+7ELh/oqEpCDCPH8RHmID/XtGnwCg=="
 }

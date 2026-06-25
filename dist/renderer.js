@@ -56,7 +56,9 @@ function hasJwtStructure(token) {
   if (parts.length !== 3) {
     return false;
   }
-  return parts.every((part) => part.length > 0 && JWT_SEGMENT_PATTERN.test(part));
+  return parts.every(
+    (part) => part.length > 0 && JWT_SEGMENT_PATTERN.test(part)
+  );
 }
 function stripBearerPrefix(value) {
   return value.trim().replace(/^Bearer\s+/i, "").trim();
@@ -104,7 +106,9 @@ function decodeJwt(token, nowMs = Date.now()) {
     return { error: "Malformed JWT: header could not be decoded." };
   }
   try {
-    const parsedPayload = JSON.parse(base64UrlDecode(encodedPayload));
+    const parsedPayload = JSON.parse(
+      base64UrlDecode(encodedPayload)
+    );
     if (typeof parsedPayload !== "object" || parsedPayload == null || Array.isArray(parsedPayload)) {
       return { error: "Malformed JWT: payload is not a JSON object." };
     }
@@ -163,7 +167,9 @@ function tryAddCandidate(candidates, raw, label, source) {
   });
 }
 function findHeaderValue(headers, name) {
-  const row = headers.find((header) => header.key.toLowerCase() === name.toLowerCase());
+  const row = headers.find(
+    (header) => header.key.toLowerCase() === name.toLowerCase()
+  );
   return row?.value;
 }
 function extractFromHeaders(headers) {
@@ -265,7 +271,10 @@ function extractJwtCandidates(response) {
   if (!response) {
     return [];
   }
-  const candidates = [...extractFromHeaders(response.headers), ...extractFromBody(response.body)];
+  const candidates = [
+    ...extractFromHeaders(response.headers),
+    ...extractFromBody(response.body)
+  ];
   return dedupeCandidates(candidates);
 }
 function truncateJwt(token) {
@@ -332,9 +341,23 @@ function JwtDetail({ token }) {
     { key: "iat", label: "Issued at" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "flex min-w-0 flex-1 flex-col gap-3 overflow-auto p-3", children: [
-    decoded.warnings.length > 0 ? /* @__PURE__ */ jsx("ul", { className: "m-0 list-disc space-y-1 pl-5 text-[14px] text-danger", "aria-label": "JWT warnings", children: decoded.warnings.map((warning) => /* @__PURE__ */ jsx("li", { children: warning }, warning)) }) : null,
+    decoded.warnings.length > 0 ? /* @__PURE__ */ jsx(
+      "ul",
+      {
+        className: "m-0 list-disc space-y-1 pl-5 text-[14px] text-danger",
+        "aria-label": "JWT warnings",
+        children: decoded.warnings.map((warning) => /* @__PURE__ */ jsx("li", { children: warning }, warning))
+      }
+    ) : null,
     /* @__PURE__ */ jsxs("section", { "aria-labelledby": "jwt-time-claims-heading", children: [
-      /* @__PURE__ */ jsx("h3", { id: "jwt-time-claims-heading", className: "mb-1 text-[14px] font-medium text-text", children: "Time claims" }),
+      /* @__PURE__ */ jsx(
+        "h3",
+        {
+          id: "jwt-time-claims-heading",
+          className: "mb-1 text-[14px] font-medium text-text",
+          children: "Time claims"
+        }
+      ),
       /* @__PURE__ */ jsx("dl", { className: "m-0 space-y-1 text-[14px]", children: timeClaims.map(({ key, label }) => {
         const formatted = formatJwtTimeClaim(decoded.payload[key]);
         return /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-[7rem_1fr] gap-2", children: [
@@ -344,11 +367,25 @@ function JwtDetail({ token }) {
       }) })
     ] }),
     /* @__PURE__ */ jsxs("section", { "aria-labelledby": "jwt-header-heading", children: [
-      /* @__PURE__ */ jsx("h3", { id: "jwt-header-heading", className: "mb-1 text-[14px] font-medium text-text", children: "Header" }),
+      /* @__PURE__ */ jsx(
+        "h3",
+        {
+          id: "jwt-header-heading",
+          className: "mb-1 text-[14px] font-medium text-text",
+          children: "Header"
+        }
+      ),
       /* @__PURE__ */ jsx("pre", { className: "m-0 overflow-auto rounded-md bg-control p-3 text-[14px] text-text", children: JSON.stringify(decoded.header, null, 2) })
     ] }),
     /* @__PURE__ */ jsxs("section", { "aria-labelledby": "jwt-payload-heading", children: [
-      /* @__PURE__ */ jsx("h3", { id: "jwt-payload-heading", className: "mb-1 text-[14px] font-medium text-text", children: "Payload" }),
+      /* @__PURE__ */ jsx(
+        "h3",
+        {
+          id: "jwt-payload-heading",
+          className: "mb-1 text-[14px] font-medium text-text",
+          children: "Payload"
+        }
+      ),
       /* @__PURE__ */ jsx("pre", { className: "m-0 overflow-auto rounded-md bg-control p-3 text-[14px] text-text", children: JSON.stringify(decoded.payload, null, 2) })
     ] })
   ] });
