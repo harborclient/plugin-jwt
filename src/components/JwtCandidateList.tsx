@@ -1,5 +1,6 @@
-import type { JwtCandidate } from "../jwt/extract";
-import { truncateJwt } from "../jwt/extract";
+import { Button } from '@harborclient/sdk/components';
+import type { JwtCandidate } from '../jwt/extract';
+import { truncateJwt } from '../jwt/extract';
 
 interface Props {
   /**
@@ -31,22 +32,20 @@ export function JwtCandidateList({ candidates, selectedId, onSelect }: Props) {
       {candidates.map((candidate) => {
         const selected = candidate.id === selectedId;
         return (
-          <button
+          <Button
             key={candidate.id}
-            type="button"
+            variant="secondary"
             role="option"
-            aria-current={selected ? "true" : undefined}
+            aria-current={selected ? 'true' : undefined}
             aria-selected={selected}
-            className={`rounded-md px-2 py-2 text-left text-[14px] ${
-              selected ? "bg-selection text-text" : "text-text hover:bg-control"
+            className={`w-full px-2 py-2 text-left text-[14px] ${
+              selected ? 'bg-selection text-text' : 'text-text hover:bg-control'
             }`}
             onClick={() => onSelect(candidate.id)}
           >
             <div className="font-medium">{candidate.label}</div>
-            <div className="mt-0.5 truncate font-mono text-muted">
-              {truncateJwt(candidate.raw)}
-            </div>
-          </button>
+            <div className="mt-0.5 truncate font-mono text-muted">{truncateJwt(candidate.raw)}</div>
+          </Button>
         );
       })}
     </div>

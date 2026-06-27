@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "@harborclient/sdk/react";
-import type { ResponseTabContext } from "@harborclient/sdk";
-import { JwtCandidateList } from "./components/JwtCandidateList";
-import { JwtDetail } from "./components/JwtDetail";
-import { extractJwtCandidates } from "./jwt/extract";
+import { EmptyState } from '@harborclient/sdk/components';
+import { useEffect, useMemo, useState } from '@harborclient/sdk/react';
+import type { ResponseTabContext } from '@harborclient/sdk';
+import { JwtCandidateList } from './components/JwtCandidateList';
+import { JwtDetail } from './components/JwtDetail';
+import { extractJwtCandidates } from './jwt/extract';
 
 interface Props {
   /**
@@ -15,7 +16,7 @@ interface Props {
  * Response tab that lists JWTs found in the last response and decodes the selected token.
  */
 export function JwtTab({ context }: Props) {
-  const { response } = context;
+  const { response, draft } = context;
 
   /**
    * JWT candidates extracted from response headers and body.
@@ -33,10 +34,7 @@ export function JwtTab({ context }: Props) {
       return;
     }
     setSelectedId((current) => {
-      if (
-        current != null &&
-        candidates.some((candidate) => candidate.id === current)
-      ) {
+      if (current != null && candidates.some((candidate) => candidate.id === current)) {
         return current;
       }
       return candidates[0]?.id ?? null;
@@ -44,33 +42,19 @@ export function JwtTab({ context }: Props) {
   }, [candidates]);
 
   if (!response) {
-    return (
-      <div className="flex flex-1 items-center justify-center p-3 text-[14px] text-muted">
-        No response yet.
-      </div>
-    );
+    return <EmptyState variant="centered">No response yet.</EmptyState>;
   }
 
   if (candidates.length === 0) {
-    return (
-      <div className="flex flex-1 items-center justify-center p-3 text-[14px] text-muted">
-        No JWTs found in this response.
-      </div>
-    );
+    return <EmptyState variant="centered">No JWTs found in this response.</EmptyState>;
   }
 
-  const selected =
-    candidates.find((candidate) => candidate.id === selectedId) ??
-    candidates[0];
+  const selected = candidates.find((candidate) => candidate.id === selectedId) ?? candidates[0];
 
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
-      <JwtCandidateList
-        candidates={candidates}
-        selectedId={selected.id}
-        onSelect={setSelectedId}
-      />
-      <JwtDetail token={selected.raw} />
+      <JwtCandidateList candidates={candidates} selectedId={selected.id} onSelect={setSelectedId} />
+      <JwtDetail token={selected.raw} draft={draft} />
     </div>
   );
 }

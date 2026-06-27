@@ -1,15 +1,10 @@
-import type { HttpResponse } from "@harborclient/sdk";
-import {
-  decodeJwt,
-  hasJwtStructure,
-  isJwtDecodeError,
-  stripBearerPrefix,
-} from "./decode";
+import type { HttpResponse } from '@harborclient/sdk';
+import { decodeJwt, hasJwtStructure, isJwtDecodeError, stripBearerPrefix } from './decode';
 
 /**
  * Source location for a JWT found in an HTTP response.
  */
-export type JwtCandidateSource = "header" | "body";
+export type JwtCandidateSource = 'header' | 'body';
 
 /**
  * A JWT string discovered in a response with a display label and stable id.
@@ -21,23 +16,16 @@ export interface JwtCandidate {
   source: JwtCandidateSource;
 }
 
-const JWT_REGEX =
-  /(?:Bearer\s+)?(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)/g;
+const JWT_REGEX = /(?:Bearer\s+)?(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)/g;
 
-const KNOWN_JSON_KEYS = new Set([
-  "access_token",
-  "id_token",
-  "token",
-  "jwt",
-  "refresh_token",
-]);
+const KNOWN_JSON_KEYS = new Set(['access_token', 'id_token', 'token', 'jwt', 'refresh_token']);
 
 const HEADER_NAMES: Array<{ name: string; label: string }> = [
-  { name: "authorization", label: "Authorization" },
-  { name: "www-authenticate", label: "WWW-Authenticate" },
-  { name: "x-access-token", label: "X-Access-Token" },
-  { name: "x-auth-token", label: "X-Auth-Token" },
-  { name: "id-token", label: "Id-Token" },
+  { name: 'authorization', label: 'Authorization' },
+  { name: 'www-authenticate', label: 'WWW-Authenticate' },
+  { name: 'x-access-token', label: 'X-Access-Token' },
+  { name: 'x-auth-token', label: 'X-Auth-Token' },
+  { name: 'id-token', label: 'Id-Token' }
 ];
 
 const MAX_JSON_DEPTH = 10;
@@ -77,7 +65,7 @@ function tryAddCandidate(
     id: `${source}:${label}:${normalized}`,
     raw: normalized,
     label,
-    source,
+    source
   });
 }
 
@@ -91,9 +79,7 @@ function findHeaderValue(
   headers: Array<{ key: string; value: string }>,
   name: string
 ): string | undefined {
-  const row = headers.find(
-    (header) => header.key.toLowerCase() === name.toLowerCase()
-  );
+  const row = headers.find((header) => header.key.toLowerCase() === name.toLowerCase());
   return row?.value;
 }
 
@@ -102,9 +88,7 @@ function findHeaderValue(
  *
  * @param headers - Response header rows.
  */
-function extractFromHeaders(
-  headers: Array<{ key: string; value: string }>
-): JwtCandidate[] {
+function extractFromHeaders(headers: Array<{ key: string; value: string }>): JwtCandidate[] {
   const candidates: JwtCandidate[] = [];
 
   for (const { name, label } of HEADER_NAMES) {
@@ -113,15 +97,15 @@ function extractFromHeaders(
       continue;
     }
 
-    if (name === "www-authenticate") {
+    if (name === 'www-authenticate') {
       const matches = value.matchAll(JWT_REGEX);
       for (const match of matches) {
-        tryAddCandidate(candidates, match[1], label, "header");
+        tryAddCandidate(candidates, match[1], label, 'header');
       }
       continue;
     }
 
-    tryAddCandidate(candidates, value, label, "header");
+    tryAddCandidate(candidates, value, label, 'header');
   }
 
   return candidates;
@@ -139,7 +123,7 @@ function extractWholeBody(body: string): JwtCandidate[] {
     return candidates;
   }
 
-  tryAddCandidate(candidates, trimmed, "Body", "body");
+  tryAddCandidate(candidates, trimmed, 'Body', 'body');
   return candidates;
 }
 
@@ -161,14 +145,14 @@ function walkJsonValue(
     return;
   }
 
-  if (typeof value === "string") {
-    const pathSegments = path.split(".");
+  if (typeof value === 'string') {
+    const pathSegments = path.split('.');
     const fieldKey = pathSegments[pathSegments.length - 1] ?? path;
     const label =
       pathSegments.length === 2 && KNOWN_JSON_KEYS.has(fieldKey.toLowerCase())
         ? `Body · ${fieldKey}`
         : `Body · ${path}`;
-    tryAddCandidate(candidates, value, label, "body");
+    tryAddCandidate(candidates, value, label, 'body');
     return;
   }
 
@@ -179,9 +163,9 @@ function walkJsonValue(
     return;
   }
 
-  if (typeof value === "object" && value != null) {
+  if (typeof value === 'object' && value != null) {
     for (const [key, nested] of Object.entries(value)) {
-      const nextPath = path === "$" ? `$.${key}` : `${path}.${key}`;
+      const nextPath = path === '$' ? `$.${key}` : `${path}.${key}`;
       walkJsonValue(nested, nextPath, depth + 1, candidates);
     }
   }
@@ -202,7 +186,7 @@ function extractFromJsonBody(body: string): JwtCandidate[] {
     return candidates;
   }
 
-  walkJsonValue(parsed, "$", 0, candidates);
+  walkJsonValue(parsed, '$', 0, candidates);
   return candidates;
 }
 
@@ -221,7 +205,7 @@ function extractByRegex(body: string): JwtCandidate[] {
       continue;
     }
     seen.add(token);
-    tryAddCandidate(candidates, token, "Body · match", "body");
+    tryAddCandidate(candidates, token, 'Body · match', 'body');
   }
 
   return candidates;
@@ -266,17 +250,12 @@ function dedupeCandidates(candidates: JwtCandidate[]): JwtCandidate[] {
  *
  * @param response - Last response from the plugin tab context, if any.
  */
-export function extractJwtCandidates(
-  response: HttpResponse | null
-): JwtCandidate[] {
+export function extractJwtCandidates(response: HttpResponse | null): JwtCandidate[] {
   if (!response) {
     return [];
   }
 
-  const candidates = [
-    ...extractFromHeaders(response.headers),
-    ...extractFromBody(response.body),
-  ];
+  const candidates = [...extractFromHeaders(response.headers), ...extractFromBody(response.body)];
   return dedupeCandidates(candidates);
 }
 

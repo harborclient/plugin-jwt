@@ -26,9 +26,12 @@ pnpm build
 pnpm pack   # produces jwt.hcp
 ```
 
-## Tests
+## Tests & quality
 
 ```bash
 pnpm test
 pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm check:bundle
 ```
