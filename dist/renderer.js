@@ -1,4 +1,4 @@
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/runtime/reactHost.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/reactHost.js
 var HOST_REACT_GLOBAL_KEY = "__HARBORCLIENT_HOST_REACT__";
 var hostReact = null;
 function readGlobalHostReact() {
@@ -29,12 +29,12 @@ function requireHostReact() {
   return hostReact;
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/runtime/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/index.js
 function installReact(react) {
   setHostReact(react);
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/runtime/jsx-runtime.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/jsx-runtime.js
 var Fragment = Symbol.for("@harborclient/sdk.Fragment");
 function build(type, props, key) {
   const react = requireHostReact();
@@ -48,7 +48,7 @@ function build(type, props, key) {
 var jsx = build;
 var jsxs = build;
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/Button/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/Button/index.js
 var VARIANT_CLASSES = {
   primary: "inline-flex min-h-[34px] cursor-pointer items-center justify-center rounded-md border border-transparent bg-accent px-3 py-1 text-[15px] font-medium text-white shadow-sm hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 app-no-drag",
   secondary: "inline-flex min-h-[34px] cursor-pointer items-center justify-center rounded-md border border-separator bg-control px-3 py-1 text-[15px] text-text shadow-sm hover:bg-selection disabled:cursor-not-allowed disabled:opacity-50 app-no-drag",
@@ -63,7 +63,7 @@ function Button({ variant = "primary", className, type = "button", innerRef, ...
   return jsx("button", { ref: innerRef, type, className: classes, ...props });
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/FieldError/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/FieldError/index.js
 function spacingClasses(spacing) {
   switch (spacing) {
     case "section":
@@ -83,7 +83,7 @@ function FieldError({ children, id: id2, spacing = "field", roleAlert = true, cl
   return jsx("p", { id: id2, className: classes, role: roleAlert ? "alert" : void 0, children });
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/runtime/react.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/react.js
 function hook(name2) {
   const react = requireHostReact();
   const fn = react[name2];
@@ -98,6 +98,9 @@ function useState(initialState) {
 function useEffect(effect, deps) {
   return hook("useEffect")(effect, deps);
 }
+function useCallback(callback, deps) {
+  return hook("useCallback")(callback, deps);
+}
 function useMemo(factory, deps) {
   return hook("useMemo")(factory, deps);
 }
@@ -106,6 +109,28 @@ function useRef(initialValue) {
 }
 function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
   return hook("useSyncExternalStore")(subscribe, getSnapshot, getServerSnapshot);
+}
+function forwardRef(render) {
+  let forwarded = null;
+  function LazyForwardRef(props, ref) {
+    const react = requireHostReact();
+    if (forwarded === null) {
+      forwarded = react.forwardRef(render);
+    }
+    return react.createElement(forwarded, { ...props, ref });
+  }
+  const displayName = render.displayName ?? render.name ?? "Component";
+  LazyForwardRef.displayName = `ForwardRef(${displayName})`;
+  return LazyForwardRef;
+}
+function useImperativeHandle(ref, create, deps) {
+  return hook("useImperativeHandle")(ref, create, deps);
+}
+function cloneElement(element, props, ...children) {
+  return hook("cloneElement")(element, props, ...children);
+}
+function isValidElement(element) {
+  return hook("isValidElement")(element);
 }
 function createContext(defaultValue) {
   return hook("createContext")(defaultValue);
@@ -116,11 +141,39 @@ function useContext(context) {
 function useId() {
   return hook("useId")();
 }
+function useLayoutEffect(effect, deps) {
+  return hook("useLayoutEffect")(effect, deps);
+}
 function createElement(type, props, ...children) {
   return hook("createElement")(type, props, ...children);
 }
+var reactNamespace = {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+  forwardRef,
+  useImperativeHandle,
+  cloneElement,
+  isValidElement,
+  createContext,
+  useContext,
+  useId,
+  useLayoutEffect,
+  createElement
+};
+var defaultExport = new Proxy(reactNamespace, {
+  get(target, prop, receiver) {
+    if (prop in target) {
+      return Reflect.get(target, prop, receiver);
+    }
+    return requireHostReact()[prop];
+  }
+});
 
-// src/reactJsxRuntimeShim.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/jsx-runtime-host.js
 import * as React from "react";
 function build2(type, props, key) {
   const { children, ...rest } = props ?? {};
@@ -131,7 +184,7 @@ function build2(type, props, key) {
 }
 var jsx2 = build2;
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/Badge/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/Badge/index.js
 function variantClasses(variant) {
   switch (variant) {
     case "success":
@@ -23307,10 +23360,10 @@ function _objectWithoutPropertiesLoose(r3, e3) {
 }
 
 // node_modules/.pnpm/@uiw+react-codemirror@4.25.10_@babel+runtime@8.0.0_@codemirror+autocomplete@6.20.3_@cod_e67f98ff469220c0ad9bb15b36961e8d/node_modules/@uiw/react-codemirror/esm/index.js
-import React2, { useRef as useRef2, forwardRef, useImperativeHandle, useCallback } from "react";
+import React2, { useRef as useRef2, forwardRef as forwardRef2, useImperativeHandle as useImperativeHandle2, useCallback as useCallback2 } from "react";
 
 // node_modules/.pnpm/@uiw+react-codemirror@4.25.10_@babel+runtime@8.0.0_@codemirror+autocomplete@6.20.3_@cod_e67f98ff469220c0ad9bb15b36961e8d/node_modules/@uiw/react-codemirror/esm/useCodeMirror.js
-import { useEffect as useEffect2, useLayoutEffect, useState as useState2 } from "react";
+import { useEffect as useEffect2, useLayoutEffect as useLayoutEffect2, useState as useState2 } from "react";
 
 // node_modules/.pnpm/@codemirror+commands@6.10.4/node_modules/@codemirror/commands/dist/index.js
 var toggleComment = (target) => {
@@ -26514,7 +26567,7 @@ function useCodeMirror(props) {
     getExtensions.push(EditorView.updateListener.of(onUpdate));
   }
   getExtensions = getExtensions.concat(extensions);
-  useLayoutEffect(() => {
+  useLayoutEffect2(() => {
     if (container && !state) {
       var config15 = {
         doc: value,
@@ -26605,7 +26658,7 @@ function useCodeMirror(props) {
 
 // node_modules/.pnpm/@uiw+react-codemirror@4.25.10_@babel+runtime@8.0.0_@codemirror+autocomplete@6.20.3_@cod_e67f98ff469220c0ad9bb15b36961e8d/node_modules/@uiw/react-codemirror/esm/index.js
 var _excluded = ["className", "value", "selection", "extensions", "onChange", "onStatistics", "onCreateEditor", "onUpdate", "autoFocus", "theme", "height", "minHeight", "maxHeight", "width", "minWidth", "maxWidth", "basicSetup", "placeholder", "indentWithTab", "editable", "readOnly", "root", "initialState"];
-var ReactCodeMirror = /* @__PURE__ */ forwardRef((props, ref) => {
+var ReactCodeMirror = /* @__PURE__ */ forwardRef2((props, ref) => {
   var className = props.className, _props$value = props.value, value = _props$value === void 0 ? "" : _props$value, selection2 = props.selection, _props$extensions = props.extensions, extensions = _props$extensions === void 0 ? [] : _props$extensions, onChange = props.onChange, onStatistics = props.onStatistics, onCreateEditor = props.onCreateEditor, onUpdate = props.onUpdate, autoFocus = props.autoFocus, _props$theme = props.theme, theme2 = _props$theme === void 0 ? "light" : _props$theme, height = props.height, minHeight = props.minHeight, maxHeight = props.maxHeight, width = props.width, minWidth = props.minWidth, maxWidth = props.maxWidth, basicSetup3 = props.basicSetup, placeholder2 = props.placeholder, indentWithTab2 = props.indentWithTab, editable2 = props.editable, readOnly2 = props.readOnly, root = props.root, initialState = props.initialState, other = _objectWithoutPropertiesLoose(props, _excluded);
   var editor = useRef2(null);
   var _useCodeMirror = useCodeMirror({
@@ -26632,12 +26685,12 @@ var ReactCodeMirror = /* @__PURE__ */ forwardRef((props, ref) => {
     extensions,
     initialState
   }), state = _useCodeMirror.state, view = _useCodeMirror.view, container = _useCodeMirror.container, setContainer = _useCodeMirror.setContainer;
-  useImperativeHandle(ref, () => ({
+  useImperativeHandle2(ref, () => ({
     editor: editor.current,
     state,
     view
   }), [editor, container, state, view]);
-  var setEditorRef = useCallback((el) => {
+  var setEditorRef = useCallback2((el) => {
     editor.current = el;
     setContainer(el);
   }, [setContainer]);
@@ -28535,7 +28588,7 @@ var e2 = { airline: { airline: [{ name: `Aegean Airlines`, iataCode: `A3` }, { n
 // node_modules/.pnpm/@faker-js+faker@10.5.0/node_modules/@faker-js/faker/dist/locale/en.js
 var r2 = new yt({ locale: [e2, Ct] });
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/variables/dynamic.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/variables/dynamic.js
 function categoryImageUrl(category) {
   return r2.image.urlLoremFlickr({ category });
 }
@@ -29035,7 +29088,7 @@ function getDynamicVariableDescription(key) {
 }
 var DYNAMIC_VARIABLE_NAMES = Object.keys(DYNAMIC_VARIABLES).sort();
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/variables/tokens.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/variables/tokens.js
 var VARIABLE_NAME_CHARS = "\\w$.-";
 var VARIABLE_TOKEN_PATTERN = new RegExp(`\\{\\{\\s*([${VARIABLE_NAME_CHARS}]+)\\s*\\}\\}`, "g");
 function variableLookup(variables) {
@@ -29056,7 +29109,7 @@ function resolveVariable(key, variables) {
   return variableLookup(variables).get(key);
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/runtime/store.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/runtime/store.js
 function createExternalStore(initial) {
   let state = initial;
   const listeners = /* @__PURE__ */ new Set();
@@ -29077,7 +29130,7 @@ function createExternalStore(initial) {
   };
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/ui/codeEditorSettings.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/ui/codeEditorSettings.js
 var DEFAULT_CODE_EDITOR_SETUP = {
   lineNumbers: true,
   foldGutter: true,
@@ -29085,7 +29138,7 @@ var DEFAULT_CODE_EDITOR_SETUP = {
   highlightActiveLineGutter: true
 };
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/CodeEditor/config.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/CodeEditor/config.js
 var DEFAULT_CODE_EDITOR_CONFIG = {
   theme: "default",
   setup: DEFAULT_CODE_EDITOR_SETUP
@@ -33109,7 +33162,7 @@ var xcodeDarkInit = (options) => {
 };
 var xcodeDark = xcodeDarkInit();
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/CodeEditor/themes.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/CodeEditor/themes.js
 var themeExtensions = {
   dracula,
   githubLight,
@@ -33126,7 +33179,7 @@ function getCodeEditorThemeExtension(value) {
   return themeExtensions[value];
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/CodeEditor/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/CodeEditor/index.js
 var lightHighlight = HighlightStyle.define([
   { tag: tags.propertyName, color: "#881391" },
   { tag: tags.string, color: "#c41a16" },
@@ -33489,7 +33542,7 @@ function CodeEditor({ value, onChange, language: language2 = "text", readOnly: r
   }, children: "Edit value" }) : null] }) : null] });
 }
 
-// node_modules/.pnpm/@harborclient+sdk@0.6.15_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search_ba082a637edc564667da1417d93e49c1/node_modules/@harborclient/sdk/dist/components/EmptyState/index.js
+// node_modules/.pnpm/@harborclient+sdk@1.0.0_@babel+runtime@8.0.0_@codemirror+lint@6.9.7_@codemirror+search@_4a97bca4b8240b001fbe9e82dfd8384f/node_modules/@harborclient/sdk/dist/components/EmptyState/index.js
 function variantClasses2(variant) {
   if (variant === "centered") {
     return "flex flex-1 items-center justify-center p-4 text-center text-[14px] text-muted";
