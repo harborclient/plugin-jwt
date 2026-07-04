@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "pluginId": "com.harborclient.plugins.jwt",
-  "pluginVersion": "1.0.4",
+  "pluginVersion": "1.0.5",
   "algorithm": "Ed25519",
   "files": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "path": "dist/renderer.js",
-      "sha256": "e7a063591d0b8a8d8c649b0ef78d9d23e00d487dd78103abbc7b038b3034e952"
+      "sha256": "c19d0a27c0ad3cf34a6462f7fdb6b2f3900f5c5aabfbd2fa92b784ebbd176c63"
     },
     {
       "path": "eslint.config.mjs",
@@ -30,15 +30,15 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "1b94cdc47f6968d70f1cadb09a9f0405aae7f8094e7af1c9ab49eb250ae6c3af"
+      "sha256": "1db1204f2586e50912ce8387be98f3b453dc576cd95757e5d3ecbbc8cc090944"
     },
     {
       "path": "package.json",
-      "sha256": "bb4d3a839bd1e781d8a4bdad97a92d62c2b8c4ba9e334fb9f540e3234512f904"
+      "sha256": "18d5cb9c0ebb8d878202b292a5cb5e3b8bb440969d872c4ac6db4c6a8a64f55d"
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "4dd4f39bf5252e84cb0d29882a352151ce2c25ba6db05a3cfb711a5fc7389cda"
+      "sha256": "a50669dc16d9afd2ec1888dd5796bccdb3f58959566b22b06ff03810c252d400"
     },
     {
       "path": "README.md",
@@ -46,7 +46,7 @@
     },
     {
       "path": "screenshot.png",
-      "sha256": "b5f2a31f8e87356ba43ddb61d443e9dc53d606e9371d5609b0b7fb24d2a1c589"
+      "sha256": "46713a629e8b027ec6a836e1ce59b9ddbba2642a89f99b6cbddc62e08801fbe4"
     },
     {
       "path": "scripts/build.mjs",
@@ -65,12 +65,16 @@
       "sha256": "3e53a3d5d692c5bfd8f063d69b2331743f8afeef3330b7e21a3b69d5daeb2ae8"
     },
     {
+      "path": "scripts/publish.sh",
+      "sha256": "272abe246e7b12684741a9eb3a26928ec7dd9a62ad4e26b95fa104c32d516412"
+    },
+    {
       "path": "scripts/render-screenshot.sh",
       "sha256": "d2fe525f530446f4f53add2abcfed2ec7f11253a7d128608781ccd18487fbb25"
     },
     {
       "path": "scripts/screenshot-marketing.html",
-      "sha256": "0395206037af34d6b353265bccb51d344700543fb42ea994a31dfd5310176723"
+      "sha256": "b79bf73ff42056a5231c31f135648f63e4ff3b16de96c502ab5cbe0c7ec68c34"
     },
     {
       "path": "src/components/JwtCandidateList.tsx",
@@ -121,5 +125,6 @@
       "sha256": "649e4273437371e435cea50f021ebd1bbe804a98f29cf6f52d928ffc72ac5356"
     }
   ],
-  "signature": "5y3NrffoE6M/PYaEabaCiVXGYgNOnejwEmvJQXwoHbOAaPUSF+PPcXAYd2FHINwT0Y9qNS/ISDS5rMY65TRKDA=="
+  "keyId": "com.harborclient.plugins.jwt",
+  "signature": "/6Uaiw6wFKAdw3FLXnnzx6tvSdFN4Zf42NdjRpypwoN7WdhL+vooY5r4UvPOBuH89VGaH9NOCX+V1mJKVv6xAQ=="
 }

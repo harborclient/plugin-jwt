@@ -2,10 +2,13 @@
   "id": "com.harborclient.plugins.jwt",
   "name": "JWT Inspector",
   "author": "HarborClient",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "README.md",
   "summary": "Scans response headers and body for JWT-shaped strings and decodes the selected token.",
-  "categories": ["jwt", "response"],
+  "categories": [
+    "jwt",
+    "response"
+  ],
   "screenshots": [
     "https://raw.githubusercontent.com/harborclient/plugin-jwt/main/screenshot.png"
   ],
@@ -13,8 +16,15 @@
     "harborclient": ">=1.9.0"
   },
   "renderer": "dist/renderer.js",
-  "permissions": ["ui"],
+  "permissions": [
+    "ui"
+  ],
   "contributes": {
-    "responseTabs": [{ "id": "jwt", "title": "JWT" }]
+    "responseTabs": [
+      {
+        "id": "jwt",
+        "title": "JWT"
+      }
+    ]
   }
 }
