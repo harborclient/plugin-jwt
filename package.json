@@ -2,6 +2,7 @@
   "name": "@harborclient/plugin-jwt",
   "type": "module",
   "scripts": {
+    "release": "bash scripts/publish.sh",
     "build": "node scripts/build.mjs && node scripts/check-bundle.mjs",
     "dev": "node scripts/build.mjs --watch",
     "typecheck": "tsc --noEmit",
@@ -15,7 +16,7 @@
     "plugin:verify": "node --experimental-strip-types scripts/plugin-verify.ts"
   },
   "dependencies": {
-    "@harborclient/sdk": "^1.0.0"
+    "@harborclient/sdk": "^1.0.33"
   },
   "devDependencies": {
     "@types/node": "^26.0.1",
