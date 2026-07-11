@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "pluginId": "com.harborclient.plugins.jwt",
-  "pluginVersion": "1.0.6",
+  "pluginVersion": "1.0.7",
   "algorithm": "Ed25519",
   "files": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "path": "dist/renderer.js",
-      "sha256": "c19d0a27c0ad3cf34a6462f7fdb6b2f3900f5c5aabfbd2fa92b784ebbd176c63"
+      "sha256": "beb974eb636d41bd533b9eba9df3b356f7d7f0dc42ec011da5bfb15e63d89662"
     },
     {
       "path": "eslint.config.mjs",
@@ -30,15 +30,15 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "146ab737249134ff4a0cf0fa974dabf053caf9894a66e516c1534ee5a141681d"
+      "sha256": "591137e53e2f014ec2e4cc742036319f30256b8157729807f2a100af1d1ee695"
     },
     {
       "path": "package.json",
-      "sha256": "18d5cb9c0ebb8d878202b292a5cb5e3b8bb440969d872c4ac6db4c6a8a64f55d"
+      "sha256": "114078ba7477899022831d770e93da9b4700093354223ec80e1cffe6e0ee3ae4"
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "a50669dc16d9afd2ec1888dd5796bccdb3f58959566b22b06ff03810c252d400"
+      "sha256": "be60f452eb388448674f71db4e036e4546187f43261d312554a395d64ced2b36"
     },
     {
       "path": "README.md",
@@ -66,7 +66,7 @@
     },
     {
       "path": "scripts/publish.sh",
-      "sha256": "272abe246e7b12684741a9eb3a26928ec7dd9a62ad4e26b95fa104c32d516412"
+      "sha256": "8a0a899d425d2d3c67f5560a54a92f080225fa022e70eac920f14c963f825c69"
     },
     {
       "path": "src/components/JwtCandidateList.tsx",
@@ -106,7 +106,7 @@
     },
     {
       "path": "src/renderer.tsx",
-      "sha256": "efc527f2d8adc97a90617fa7e631038de27f125fc42f0d5344e80aef338100f0"
+      "sha256": "5df5f0b350eac74b9ce9377f890ec97a1732fd6307f293d710e2f5f43895c440"
     },
     {
       "path": "tsconfig.json",
@@ -118,5 +118,5 @@
     }
   ],
   "keyId": "com.harborclient.plugins.jwt",
-  "signature": "mSxyT4O3jTcDX8+2dYQzNPa+T9Uv2qRqJ/AHiZjtHRoyBj3s8n/IXwlu2knUSGq3cd+JluQaq9wYsiQvPtAhCw=="
+  "signature": "ygq7XdHCiKvlFEayNo3SbMpfXem6kN5kiB05v9jidYvyr3D9Fkkd7RVTT8v92o0Xpc6EV9mdIOBBlIKaDQTXDg=="
 }
